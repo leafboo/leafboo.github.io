@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My New Hugo Project</title>
-    <link>https://example.org/posts/</link>
+    <link>https://leafboo.github.io/posts/</link>
     <description>Recent content in Posts on My New Hugo Project</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 02 May 2026 18:47:41 +0800</lastBuildDate>
-    <atom:link href="https://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://leafboo.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>First Post</title>
-      <link>https://example.org/posts/first-post/</link>
+      <link>https://leafboo.github.io/posts/first-post/</link>
       <pubDate>Sat, 02 May 2026 18:47:41 +0800</pubDate>
-      <guid>https://example.org/posts/first-post/</guid>
+      <guid>https://leafboo.github.io/posts/first-post/</guid>
       <description>&lt;p&gt;This is my first ever blog&lt;/p&gt;</description>
     </item>
   </channel>
