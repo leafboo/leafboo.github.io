@@ -6,8 +6,15 @@
     <description>Recent content on My New Hugo Project</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 May 2026 18:47:41 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 16:48:18 +0800</lastBuildDate>
     <atom:link href="https://leafboo.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C Sockets</title>
+      <link>https://leafboo.github.io/posts/c-sockets/</link>
+      <pubDate>Sun, 03 May 2026 16:48:18 +0800</pubDate>
+      <guid>https://leafboo.github.io/posts/c-sockets/</guid>
+      <description>&lt;p&gt;Update this Markdown file&lt;/p&gt;</description>
+    </item>
     <item>
       <title>First Post</title>
       <link>https://leafboo.github.io/posts/first-post/</link>
