@@ -1,0 +1,71 @@
+# PLAN:
+#   - git clone the repo to the runner
+#   - install and setup hugo (also install yq for parsing a YAML file in bash)
+#   - parse the repos in the README.md where we will store the repos that we want to get the README.md
+#   - using the github api, get the READMEs of those repo.
+#   - put the READMEs into its specified directory in the Hugo structure
+#   - build the hugo site
+#   - git commit -a -m "commit message"
+#   - git push
+#   - nice
+
+name: Deploy Hugo site
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Checkout 
+      - name: Checkout different repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'leafboo/c-tcp-sockets'
+
+      # list the files in the cwd
+      - name: List files in cwd
+        run: ls
+
+  #     # Install Hugo
+  #     - name: Setup Hugo
+  #       uses: peaceiris/actions-hugo@v3
+  #       with:
+  #         hugo-version: latest
+  #
+  #     # Configure GitHub Pages
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v5 # TODO: what the heck does this do???
+  #
+  #     # Build the site
+  #     - name: Build
+  #       run: hugo --minify
+  #
+  #     # Upload generated files
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: ./public
+  #
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     # Deploy to GitHub Pages
+  #     - name: Deploy
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4 # TODO: what the heck does this do???
