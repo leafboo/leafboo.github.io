@@ -30,9 +30,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Download 'yq', the YAML parser in bash
-      - name: Download YAML parser
-        run: sudo apt install yq
+      # Check the version of yq, the YAML parser
+      - name: Check the version of yq
+        run: yq --version
 
       # list the files in the cwd
       - name: List files after pulling from current repo
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout different repo
         uses: actions/checkout@v4
         with:
-          repository: 'leafboo/c-tcp-sockets'
+          repository: leafboo/c-tcp-sockets
           path: temp-other-repo
           sparse-checkout: |
             README.md
