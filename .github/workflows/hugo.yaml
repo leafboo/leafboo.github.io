@@ -35,6 +35,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'leafboo/c-tcp-sockets'
+          path: temp-other-repo
+          sparse-checkout: |
+            README.md
+          sparse-checkout-cone-mode: false 
 
       # list the files in the cwd
       - name: List files in cwd
