@@ -51,10 +51,9 @@ jobs:
       # list the files in the temp-other-repo
       - name: move the contents from the pulled README to the content markdown
         run: |
-          cat ../README.md >> content/c-tcp-sockets.md
+          cat temp-other-repo/README.md >> content/c-tcp-sockets.md
           rm -rf temp-other-repo
           ls
-          cat content/c-tcp-sockets.md
 
   #     # Install Hugo
   #     - name: Setup Hugo
