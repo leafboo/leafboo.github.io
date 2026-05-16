@@ -26,19 +26,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository
+      # Clone the current repo to the remote runner
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Check the version of yq, the YAML parser
-      - name: Check the version of yq
-        run: yq --version
+      # Install Hugo
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: latest
 
-      # list the files in the cwd of current repo
-      - name: List files after pulling from current repo
-        run: ls
+      # # Check the version of yq, the YAML parser
+      # - name: Check the version of yq
+      #   run: yq --version
 
-      # Checkout 
+      # Get the README from 'leafboo/c-tcp-sockets' repository 
       - name: Checkout different repo
         uses: actions/checkout@v4
         with:
@@ -48,39 +50,30 @@ jobs:
             README.md
           sparse-checkout-cone-mode: false 
 
-      # list the files in the temp-other-repo
-      - name: move the contents from the pulled README to the content markdown
-        run: |
-          cat temp-other-repo/README.md >> content/c-tcp-sockets.md
-          rm -rf temp-other-repo
-          ls
+      # Append the contents in the README to content/c-tcp.sockets.md 
+      - name: Append the contents of the README to the markdown in content/
+        run: cat temp-other-repo/README.md >> content/c-tcp-sockets.md
+        #
+      # Build the site
+      - name: Build
+        run: hugo --minify
 
-  #     # Install Hugo
-  #     - name: Setup Hugo
-  #       uses: peaceiris/actions-hugo@v3
-  #       with:
-  #         hugo-version: latest
-  #
-  #     # Configure GitHub Pages
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v5 # TODO: what the heck does this do???
-  #
-  #     # Build the site
-  #     - name: Build
-  #       run: hugo --minify
-  #
-  #     # Upload generated files
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #         path: ./public
-  #
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #
-  #   steps:
-  #     # Deploy to GitHub Pages
-  #     - name: Deploy
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4 # TODO: what the heck does this do???
+      # Configure GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5 
+
+      # Upload generated files
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Deploy to GitHub Pages
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4 
