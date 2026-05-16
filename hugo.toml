@@ -1,0 +1,4 @@
+baseURL = 'https://leafboo.github.io/'
+locale = 'en-us'
+title = 'My New Hugo Project'
+theme = 'contrast-hugo'
