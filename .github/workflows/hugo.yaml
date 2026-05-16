@@ -34,7 +34,7 @@ jobs:
       - name: Check the version of yq
         run: yq --version
 
-      # list the files in the cwd
+      # list the files in the cwd of current repo
       - name: List files after pulling from current repo
         run: ls
 
@@ -48,9 +48,9 @@ jobs:
             README.md
           sparse-checkout-cone-mode: false 
 
-      # list the files in the cwd
-      - name: List files after pulling from a different repo
-        run: ls
+      # list the files in the temp-other-repo
+      - name: List files in the temp-other-repo
+        run: ls ./temp-other-repo
 
       # Git log
       - name: Git log
