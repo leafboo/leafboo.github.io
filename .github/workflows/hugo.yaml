@@ -50,7 +50,9 @@ jobs:
 
       # list the files in the temp-other-repo
       - name: List files in the temp-other-repo
-        run: ls ./temp-other-repo
+        run: |
+          ls ./temp-other-repo
+          git log
 
       # Git log
       - name: Git log
