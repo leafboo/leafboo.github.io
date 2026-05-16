@@ -40,6 +40,10 @@ jobs:
       - name: List files in cwd
         run: ls
 
+      # Git log
+      - name: Git log
+        run: git log
+
   #     # Install Hugo
   #     - name: Setup Hugo
   #       uses: peaceiris/actions-hugo@v3
