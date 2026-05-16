@@ -30,6 +30,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Download 'yq', the YAML parser in bash
+      - name: Download YAML parser
+        run: sudo apt install yq
+
+      # list the files in the cwd
+      - name: List files after pulling from current repo
+        run: ls
+
       # Checkout 
       - name: Checkout different repo
         uses: actions/checkout@v4
@@ -41,7 +49,7 @@ jobs:
           sparse-checkout-cone-mode: false 
 
       # list the files in the cwd
-      - name: List files in cwd
+      - name: List files after pulling from a different repo
         run: ls
 
       # Git log
