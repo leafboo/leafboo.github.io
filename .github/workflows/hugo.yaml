@@ -1,14 +1,3 @@
-# PLAN:
-#   - git clone the repo to the runner
-#   - install and setup hugo (also install yq for parsing a YAML file in bash)
-#   - parse the repos in the README.md where we will store the repos that we want to get the README.md
-#   - using the github api, get the READMEs of those repo.
-#   - put the READMEs into its specified directory in the Hugo structure
-#   - build the hugo site
-#   - git commit -a -m "commit message"
-#   - git push
-#   - nice
-
 name: Deploy Hugo site
 
 on:
@@ -36,10 +25,6 @@ jobs:
         with:
           hugo-version: latest
 
-      # # Check the version of yq, the YAML parser
-      # - name: Check the version of yq
-      #   run: yq --version
-
       # Get the README from 'leafboo/c-tcp-sockets' repository 
       - name: Checkout different repo
         uses: actions/checkout@v4
@@ -52,8 +37,8 @@ jobs:
 
       # Append the contents in the README to content/c-tcp.sockets.md 
       - name: Append the contents of the README to the markdown in content/
-        run: cat temp-other-repo/README.md >> content/c-tcp-sockets.md
-        #
+        run: cat temp-other-repo/README.md >> content/posts/c-tcp-sockets.md
+
       # Build the site
       - name: Build
         run: hugo --minify
