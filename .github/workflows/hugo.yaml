@@ -40,13 +40,13 @@ jobs:
       - name: Append the contents of the README to the markdown in content/
         run: cat tmp/README.md >> content/posts/c-tcp-sockets.md
 
-      # Move the image directory in tmp/ to public/
-      - name: Move images/ into public/
-        run: mv tmp/images public/
-
       # Build the site
       - name: Build
         run: hugo --minify
+
+      # Move the image directory in tmp/ to public/
+      - name: Move images/ into public/
+        run: mv tmp/images public/
 
       # Configure GitHub Pages
       - name: Setup Pages
