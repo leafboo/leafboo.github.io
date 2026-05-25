@@ -83,19 +83,15 @@ jobs:
           merge-multiple: true
 
       - name: Move the markdown files to content/
-        run: |
-          mv initialization-artifacts/content/* content/posts/
-          cat content/posts/c-tcp-sockets.md
+        run: mv initialization-artifacts/content/* content/posts/
 
       - name: Build site
-        run: hugo --minify
+        run: hugo --minify --buildDrafts
 
       - name: Move the images from the artifacts to the public/ directory
         run: |
           mv initialization-artifacts/images public/
           rm -rf initialization-artifacts
-          ls public/images
-          ls failhere
 
       # Configure GitHub Pages
       - name: Setup Pages
