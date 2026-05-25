@@ -41,7 +41,7 @@ jobs:
       - name: Append texts to the Hugo markdown
         run: |
           mkdir content
-          repository_name="$(echo ${OWNER_AND_REPOSITORY_NAME} | sed 's/leafboo\//')"
+          repository_name="$(echo ${OWNER_AND_REPOSITORY_NAME} | sed 's/leafboo\///g')"
           hugo new content/${repository_name}.md
           cat tmp/README.md >> content/${repository_name}.md
           mv tmp/images .
