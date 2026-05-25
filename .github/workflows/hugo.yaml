@@ -85,7 +85,7 @@ jobs:
       - name: Move the markdown files to content/
         run: |
           mv initialization-artifacts/content/* content/posts/
-          ls content/posts/c-tcp-sockets.md
+          cat content/posts/c-tcp-sockets.md
 
       - name: Build site
         run: hugo --minify
