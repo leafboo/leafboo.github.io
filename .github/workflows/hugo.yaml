@@ -85,6 +85,7 @@ jobs:
       - name: Move the markdown files to content/
         run: |
           mv initialization-artifacts/content/* content/posts/
+          ls content/posts/c-tcp-sockets.md
 
       - name: Build site
         run: hugo --minify
@@ -93,10 +94,8 @@ jobs:
         run: |
           mv initialization-artifacts/images public/
           rm -rf initialization-artifacts
-          ls
-          ls public
-          ls public/content
           ls public/images
+          ls failhere
 
       # Configure GitHub Pages
       - name: Setup Pages
