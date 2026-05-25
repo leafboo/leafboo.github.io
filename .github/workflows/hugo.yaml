@@ -75,28 +75,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # TODO: get the artifacts from the previous job
+      # Get the artifacts from the previous job
       - name: Get artifacts from the initialization job
         uses: actions/download-artifact@v8
         with:
           path: initialization-artifacts/
           merge-multiple: true
 
-      - name: List the downloaded artifacts
+      - name: Move the markdown files to content/
         run: |
-          ls initialization-artifacts
-          cat failhere.txt
+          mv initialization-artifacts/content/* content/posts/
 
-      # TODO: move files from the artifact to the content/posts/ directory
-
-      # Build the site
-      # TODO: separate this to a build job (note: when a job depends on another job that uses matrix, it waits for all the matrix jobs to finish first before proceeding)
-      - name: Build
+      - name: Build site
         run: hugo --minify
 
-      # Move the image directory in tmp/ to public/
-      - name: Move images/ into public/
-        run: mv tmp/images public/
+      - name: Move the images from the artifacts to the public/ directory
+        run: mv initialization-artifacts/images public/
 
       # Configure GitHub Pages
       - name: Setup Pages
