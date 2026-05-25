@@ -49,13 +49,14 @@ jobs:
           github_repo_link="<br><br><br>
           Link to GitHub repo: <https://github.com/${OWNER_AND_REPOSITORY_NAME}>"
           echo ${github_repo_link} >> content/${repository_name}.md
+          echo "REPOSITORY=${repository_name}" >> "$GITHUB_ENV"
         env:
           OWNER_AND_REPOSITORY_NAME: ${{ matrix.repository }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.repository }}
+          name: ${{ env.REPOSITORY }}
           path: .
 
 
