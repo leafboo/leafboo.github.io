@@ -11,36 +11,84 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  initialization:
+    strategy:
+      matrix:
+        repository: [leafboo/c-tcp-sockets]
+
     runs-on: ubuntu-latest
 
-    steps:
-      # Clone the current repo to the remote runner
-      - name: Checkout
-        uses: actions/checkout@v4
-
+    steps: 
       # Install Hugo
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: latest
 
-      # Get the README from 'leafboo/c-tcp-sockets' repository 
+
+      # Get the README and images/ from the matrix 'repository'
       - name: Checkout different repo
         uses: actions/checkout@v4
         with:
-          repository: leafboo/c-tcp-sockets
+          repository: ${{ matrix.repository }}
           path: tmp
           sparse-checkout: |
             README.md
             images
           sparse-checkout-cone-mode: false 
 
-      # Append the contents in the README to content/c-tcp.sockets.md 
-      - name: Append the contents of the README to the markdown in content/
-        run: cat tmp/README.md >> content/posts/c-tcp-sockets.md
+      # Append both the text contents from README in tmp/ and the link to the github repo to the Hugo markdown
+      - name: Append texts to the Hugo markdown
+        run: |
+          mkdir content
+          repository_name="$(echo ${OWNER_AND_REPOSITORY_NAME} | sed 's/leafboo\//')"
+          hugo new content/${repository_name}.md
+          cat tmp/README.md >> content/${repository_name}.md
+          mv tmp/images .
+          rm -rf tmp
+          github_repo_link="<br><br><br>
+          Link to GitHub repo: <https://github.com/${OWNER_AND_REPOSITORY_NAME}>"
+          echo ${github_repo_link} >> content/${repository_name}.md
+        env:
+          OWNER_AND_REPOSITORY_NAME: ${{ matrix.repository }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.repository }}
+
+
+  build:
+    needs: initialization
+    runs-on: ubuntu-latest
+
+    steps:
+      # Install Hugo
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: latest
+
+      # Clone the current repo to the remote runner
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # TODO: get the artifacts from the previous job
+      - name: Get artifacts from the initialization job
+        uses: actions/download-artifact@v8
+        with:
+          path: initialization-artifacts/
+          merge-multiple: true
+
+      - name: List the downloaded artifacts
+        run: |
+          cat failhere.txt
+          ls initialization-artifacts
+
+      # TODO: move files from the artifact to the content/posts/ directory
 
       # Build the site
+      # TODO: separate this to a build job (note: when a job depends on another job that uses matrix, it waits for all the matrix jobs to finish first before proceeding)
       - name: Build
         run: hugo --minify
 
